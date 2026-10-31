@@ -5,12 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Patient data — Luno Health</title>
   <link rel="icon" href="assets/img/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css?v=8">
 </head>
 <body>
-  <header class="navbar"><div class="navbar_wrapper"><a href="index.html" class="navbar_logo"><img class="navbar_logo-mark" src="assets/img/logo.png" alt="Luno Health"><span class="navbar_logo-text">Luno Health</span></a><nav class="navbar_inner"><div class="navbar_left"><a class="navbar_link" href="index.html">Home</a></div><div class="navbar_right"><a class="navbar_cta" href="contact.html">Contact</a></div></nav><button class="navbar_hamburger" type="button" aria-label="Menu"></button></div></header>
+  <header class="navbar">
+    <div class="navbar_wrapper">
+      <a href="index.html" class="navbar_logo"><img class="navbar_logo-mark" src="assets/img/logo.png" alt="Luno Health"><span class="navbar_logo-text">Luno Health</span></a>
+      <nav class="navbar_inner" aria-label="Primary">
+        <div class="navbar_left">
+          <a class="navbar_link" href="treatments.html">Treatments</a>
+          <a class="navbar_link" href="how-it-works.html">How it works</a>
+          <a class="navbar_link" href="about.html">About</a>
+        </div>
+        <div class="navbar_right"><a class="navbar_link" href="contact.html">Contact</a><a class="navbar_cta" href="contact.html">Get a free plan</a></div>
+      </nav>
+      <button class="navbar_hamburger" type="button" aria-label="Open menu"></button>
+    </div>
+  </header>
   <div class="navbar_overlay"></div>
-  <aside class="navbar_menu"><div class="navbar_menu-top"><span>Menu</span><button class="navbar_menu-close" type="button">✕</button></div><a class="navbar_menu-nav-link" href="index.html">Home</a></aside>
+  <aside class="navbar_menu">
+    <div class="navbar_menu-top"><span>Menu</span><button class="navbar_menu-close" type="button" aria-label="Close">✕</button></div>
+    <a class="navbar_menu-nav-link" href="index.html">Home</a>
+    <a class="navbar_menu-nav-link" href="treatments.html">Treatments</a>
+    <a class="navbar_menu-nav-link" href="how-it-works.html">How it works</a>
+    <a class="navbar_menu-nav-link" href="about.html">About</a>
+    <a class="navbar_menu-nav-link" href="contact.html">Contact</a>
+  </aside>
   <main class="section_page-hero page-padding" style="padding-bottom:5rem">
     <div class="container-large legal">
       <div><span class="text-mono">Legal</span><h1 class="heading-style-h1" style="margin-top:.75rem">Patient data and consent</h1></div>
@@ -19,6 +42,7 @@
       <div><h3 class="heading-style-h3">Stop or delete</h3><p>Write to <a href="mailto:lunohealthpe@gmail.com">lunohealthpe@gmail.com</a>. We stop sharing and delete what we hold, except what the law or a hospital file must keep.</p></div>
     </div>
   </main>
+  <footer class="section_footer page-padding"><div class="container-large"><div class="footer_bottom"><a href="index.html">Luno Health</a><span><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="contact.html">Contact</a></span></div></div></footer>
   <script src="assets/js/main.js?v=7" defer></script>
 </body>
 </html>
