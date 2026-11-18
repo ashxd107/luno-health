@@ -93,8 +93,18 @@ for lang in ('en', 'ru'):
         robots = 'index, follow, max-image-preview:large' if prio >= 0.5 else 'index, follow'
         loc, alt_loc = ('ru_RU', 'en_IN') if lang == 'ru' else ('en_IN', 'ru_RU')
         ld = json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False)
-        block = '\n'.join([
-            '', '  <!-- seo -->',
+        # English pages: send visitors from Russian-speaking regions to /ru/ (unless they chose English)
+        ru_target = 'ru/' + ('' if name == 'index.html' else name)
+        auto_ru = ('  <script>(function(){try{if(/bot|crawl|spider|slurp|lighthouse|headless|preview/i.test(navigator.userAgent))return;'
+                   'var p=localStorage.getItem("luno_lang");if(p==="en")return;'
+                   'var l=(navigator.languages||[navigator.language||""]).join(",").toLowerCase();'
+                   'var z=(Intl.DateTimeFormat().resolvedOptions().timeZone||"");'
+                   'var ruTz=/^(Europe\\/(Moscow|Minsk|Kaliningrad|Samara|Volgograd|Saratov|Ulyanovsk|Astrakhan|Kirov)|Asia\\/(Yekaterinburg|Omsk|Novosibirsk|Barnaul|Tomsk|Novokuznetsk|Krasnoyarsk|Irkutsk|Chita|Yakutsk|Khandyga|Vladivostok|Ust-Nera|Magadan|Sakhalin|Srednekolymsk|Kamchatka|Anadyr|Tashkent|Samarkand|Dushanbe|Almaty|Qostanay|Qyzylorda|Aqtobe|Aqtau|Atyrau|Oral|Bishkek|Ashgabat))$/;'
+                   'var ruLang=/(^|,)(ru|be|kk|ky|tg|uz|tk)(-|,|$)/;'
+                   f'if(p==="ru"||ruLang.test(l)||ruTz.test(z))location.replace("{ru_target}"+location.search+location.hash);'
+                   '}catch(e){}})();</script>') if lang == 'en' else None
+        block = '\n'.join([x for x in [
+            '', '  <!-- seo -->', auto_ru,
             f'  <meta name="description" content="{html.escape(desc)}">',
             f'  <meta name="robots" content="{robots}">',
             f'  <link rel="canonical" href="{url}">',
@@ -119,7 +129,7 @@ for lang in ('en', 'ru'):
             f'  <meta name="twitter:image" content="{OG}">',
             f'  <link rel="apple-touch-icon" href="{prefix}assets/img/favicon.png">',
             f'  <script type="application/ld+json">{ld}</script>',
-            '  <!-- /seo -->'])
+            '  <!-- /seo -->'] if x is not None])
         s = s.replace('</title>', '</title>' + block, 1)
         s = re.sub(r'<img (?![^>]*loading=)(?![^>]*navbar_logo-mark)(?![^>]*hero)', '<img loading="lazy" decoding="async" ', s)
         s = s.replace('<div class="hero_bg"><img src=', '<div class="hero_bg"><img fetchpriority="high" src=')

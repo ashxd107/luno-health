@@ -45,8 +45,6 @@ for page in PAGES:
     r = r.replace(f'href="{tgt}" hreflang="{lang}" lang="{lang}" aria-label="{full}">{label}</a>', f'href="{btgt}" hreflang="{blang}" lang="{blang}" aria-label="{bfull}">{blabel}</a>')
     r = r.replace(f'<a class="navbar_menu-lang" href="{tgt}" hreflang="{lang}" lang="{lang}">{full}</a>', f'<a class="navbar_menu-lang" href="{btgt}" hreflang="{blang}" lang="{blang}">{bfull}</a>')
     # mobile "Languages" block on home: make it a real switcher
-    r = r.replace('<a class="navbar_menu-col-link" href="contact.html">Russian</a>', '<a class="navbar_menu-col-link" href="index.html">Русский</a>')
-    r = r.replace('<a class="navbar_menu-col-link" href="contact.html">English</a>', '<a class="navbar_menu-col-link" href="../index.html" lang="en">English</a>')
     # Cyrillic display font
     r = r.replace('family=Instrument+Serif:ital@0;1&family=Source+Sans+3', 'family=Instrument+Serif:ital@0;1&family=Lora:wght@400;500&family=Source+Sans+3')
     # asset paths

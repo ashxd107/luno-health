@@ -54,6 +54,13 @@
     el.setAttribute('rel', 'noopener');
   });
 
+  // Remember an explicit language choice so auto-detection never overrides it
+  document.querySelectorAll('a[hreflang]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      try { localStorage.setItem('luno_lang', a.getAttribute('hreflang')); } catch (e) {}
+    });
+  });
+
   document.querySelectorAll('[data-drag-slider]').forEach(function (wrap) {
     var track = wrap.querySelector('.slider_track');
     var prev = wrap.querySelector('[data-slider-prev]');
