@@ -24,7 +24,7 @@ PAGES = {
 ORG = {
   "@type": "Organization", "@id": BASE + "#organization",
   "name": "Luno Health", "alternateName": ["LunoHealth", "Luno Health India", "lunohealth.in"], "legalName": "Utkarashish Ecom Private Limited",
-  "url": BASE, "logo": BASE + "assets/img/logo.png", "image": OG,
+  "url": BASE, "logo": BASE + "assets/brand/png/luno-mark-512.png", "image": OG,
   "description": "Medical travel facilitator connecting international patients with accredited hospitals in India.",
   "email": "lunohealthpe@gmail.com", "telephone": "+91-8431336991",
   "identifier": {"@type": "PropertyValue", "propertyID": "CIN", "value": "U47912CT2024PTC016818"},
@@ -127,7 +127,7 @@ for lang in ('en', 'ru'):
             f'  <meta name="twitter:title" content="{html.escape(title)}">',
             f'  <meta name="twitter:description" content="{html.escape(desc)}">',
             f'  <meta name="twitter:image" content="{OG}">',
-            f'  <link rel="apple-touch-icon" href="{prefix}assets/img/favicon.png">',
+            f'  <link rel="apple-touch-icon" href="{prefix}assets/brand/favicon/apple-touch-icon.png">',
             f'  <script type="application/ld+json">{ld}</script>',
             '  <!-- /seo -->'] if x is not None])
         s = s.replace('</title>', '</title>' + block, 1)

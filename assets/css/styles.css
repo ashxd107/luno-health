@@ -671,3 +671,17 @@ body.is-home .footer_logo .navbar_logo-mark, .footer_logo .navbar_logo-mark { fi
 html[lang="ru"] { --display: "Lora", Georgia, "Times New Roman", serif; }
 html[lang="ru"] h1, html[lang="ru"] h2, html[lang="ru"] h3 { letter-spacing: -0.01em; }
 html[lang="ru"] .heading-style-h1 { line-height: 1.12; }
+
+/* Lumen logo */
+.navbar_logo-mark { height: 2rem; width: auto; filter: none !important; }
+.footer_logo .navbar_logo-mark { height: 2.25rem; }
+.navbar .logo-on-dark { display: none; }
+@media (min-width: 992px) {
+  body.is-home .navbar .logo-on-light, .navbar_wrapper.is-scrolled .logo-on-light { display: none; }
+  body.is-home .navbar .logo-on-dark, .navbar_wrapper.is-scrolled .logo-on-dark { display: block; }
+}
+@media (max-width: 991px) {
+  .navbar_logo-mark { height: 1.75rem; }
+  body.is-home .navbar_wrapper:not(.is-scrolled) .logo-on-light { display: none; }
+  body.is-home .navbar_wrapper:not(.is-scrolled) .logo-on-dark { display: block; }
+}

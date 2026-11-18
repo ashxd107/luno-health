@@ -1,0 +1,20 @@
+{
+  "name": "Luno Health",
+  "short_name": "Luno",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#061a19",
+  "theme_color": "#0b2b29",
+  "icons": [
+    {
+      "src": "/assets/brand/favicon/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/brand/favicon/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
