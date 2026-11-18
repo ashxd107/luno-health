@@ -92,7 +92,7 @@
         else setError(field, '');
       });
       if (!ok) return;
-      var lines = ['New enquiry — Luno Health'];
+      var lines = ['New enquiry: Luno Health'];
       new FormData(form).forEach(function (v, k) { if (v && k !== '_gotcha') lines.push(k + ': ' + v); });
       if (CONFIG.formEndpoint) {
         fetch(CONFIG.formEndpoint, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(form) })
@@ -118,7 +118,63 @@
   document.querySelectorAll('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var revealables = document.querySelectorAll('.title_row, .market_card, .case_card, .check_item, .member_photo, .member_copy, .visual_tile, .slider_card, .tx, .phase, .split, .form_card, .value_card, .contact_item, .compare_scroll, .buybox_stage, .buybox_right, .cta_component, .hero_content > *');
+
+  // Rooms & suites tabs
+  document.querySelectorAll('[data-tabs]').forEach(function (root) {
+    var tabs = root.querySelectorAll('[data-tab]');
+    var panels = root.querySelectorAll('[data-panel]');
+    tabs.forEach(function (tab) {
+      tab.setAttribute('aria-selected', tab.classList.contains('is-active') ? 'true' : 'false');
+      tab.addEventListener('click', function () {
+        var id = tab.getAttribute('data-tab');
+        tabs.forEach(function (t) { var on = t === tab; t.classList.toggle('is-active', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); });
+        panels.forEach(function (p) { p.classList.toggle('is-active', p.getAttribute('data-panel') === id); });
+      });
+    });
+  });
+
+  // Hospital city filter
+  document.querySelectorAll('[data-city-tabs]').forEach(function (bar) {
+    var section = bar.closest('section') || document;
+    var cards = section.querySelectorAll('.hospital_card');
+    bar.querySelectorAll('[data-city]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var city = btn.getAttribute('data-city');
+        bar.querySelectorAll('[data-city]').forEach(function (b) { b.classList.toggle('is-active', b === btn); });
+        cards.forEach(function (card, i) {
+          var show = city === 'all' || card.getAttribute('data-city') === city;
+          card.classList.toggle('is-hidden', !show);
+          if (show && !reduceMotion) {
+            card.classList.add('is-entering');
+            window.setTimeout(function () { card.classList.remove('is-entering'); }, 30 + (i % 6) * 50);
+          }
+        });
+      });
+    });
+  });
+
+  // Count-up numbers
+  function countUp(el) {
+    var target = parseFloat(el.getAttribute('data-count')) || 0;
+    if (reduceMotion || target === 0) { el.textContent = target; return; }
+    var start = null, dur = 1400;
+    function step(ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) window.requestAnimationFrame(step);
+    }
+    el.textContent = '0';
+    window.requestAnimationFrame(step);
+  }
+  if ('IntersectionObserver' in window) {
+    var cio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { countUp(e.target); cio.unobserve(e.target); } });
+    }, { threshold: 0.6 });
+    document.querySelectorAll('[data-count]').forEach(function (el) { cio.observe(el); });
+  }
+
+  var revealables = document.querySelectorAll('.title_row, .why_card, .reveal-img, .timeline, .bars, .bento_item, .hospital_grid, .rooms, .trust, .stat, .tx_card, .buybox_faqs, .market_card, .case_card, .check_item, .member_photo, .member_copy, .visual_tile, .slider_card, .tx, .phase, .split, .form_card, .value_card, .contact_item, .compare_scroll, .buybox_stage, .buybox_right, .cta_component, .hero_content > *');
   if (reduceMotion || !('IntersectionObserver' in window)) {
     revealables.forEach(function (el) { el.classList.add('is-in'); });
   } else {
