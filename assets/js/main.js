@@ -5,6 +5,17 @@
     formEndpoint: ''
   };
 
+  var RU = (document.documentElement.lang || '').indexOf('ru') === 0;
+  var L = RU ? {
+    hello: 'Здравствуйте, Luno Health. Хочу получить план лечения в Индии.',
+    required: 'Обязательное поле.', enquiry: 'Новая заявка: Luno Health', fallback: 'Пожалуйста, напишите нам в WhatsApp.',
+    fields: { name: 'Имя', phone: 'WhatsApp', country: 'Страна', need: 'Интересует', message: 'Комментарий' }
+  } : {
+    hello: 'Hello Luno Health. I would like a treatment plan in India.',
+    required: 'Required.', enquiry: 'New enquiry: Luno Health', fallback: 'Please message us on WhatsApp.',
+    fields: { name: 'Name', phone: 'WhatsApp', country: 'Country', need: 'Need', message: 'Note' }
+  };
+
   var wrapper = document.querySelector('.navbar_wrapper');
   var hamburger = document.querySelector('.navbar_hamburger');
   var menu = document.querySelector('.navbar_menu');
@@ -37,7 +48,7 @@
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
 
   document.querySelectorAll('[data-whatsapp]').forEach(function (el) {
-    var text = el.getAttribute('data-whatsapp') || 'Hello Luno Health. I would like a treatment plan in India.';
+    var text = el.getAttribute('data-whatsapp') || L.hello;
     el.setAttribute('href', 'https://wa.me/' + CONFIG.whatsappNumber + '?text=' + encodeURIComponent(text));
     el.setAttribute('target', '_blank');
     el.setAttribute('rel', 'noopener');
@@ -88,16 +99,16 @@
       e.preventDefault();
       var ok = true;
       form.querySelectorAll('[required]').forEach(function (field) {
-        if (!field.value.trim()) { setError(field, 'Required.'); ok = false; }
+        if (!field.value.trim()) { setError(field, L.required); ok = false; }
         else setError(field, '');
       });
       if (!ok) return;
-      var lines = ['New enquiry: Luno Health'];
-      new FormData(form).forEach(function (v, k) { if (v && k !== '_gotcha') lines.push(k + ': ' + v); });
+      var lines = [L.enquiry];
+      new FormData(form).forEach(function (v, k) { if (v && k !== '_gotcha') lines.push((L.fields[k] || k) + ': ' + v); });
       if (CONFIG.formEndpoint) {
         fetch(CONFIG.formEndpoint, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(form) })
           .then(function (r) { if (!r.ok) throw new Error(); form.classList.add('is-sent'); })
-          .catch(function () { alert('Please message us on WhatsApp.'); });
+          .catch(function () { alert(L.fallback); });
       } else {
         window.open('https://wa.me/' + CONFIG.whatsappNumber + '?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
         form.classList.add('is-sent');

@@ -661,3 +661,13 @@ body { font-size: var(--fs-body); line-height: 1.6; }
 body.is-home .footer_logo .navbar_logo-mark, .footer_logo .navbar_logo-mark { filter: none !important; }
 .container-large.legal { max-width: 80rem; }
 .legal > div { max-width: 46rem; }
+
+/* Language switcher */
+.navbar_lang { display: inline-flex; align-items: center; justify-content: center; min-width: 2.4rem; padding: .3rem .6rem; border: 1px solid currentColor; border-radius: var(--pill); font-size: var(--fs-label); letter-spacing: .08em; opacity: .85; }
+.navbar_lang:hover { opacity: 1; }
+.navbar_menu-lang { margin-top: auto; align-self: flex-start; padding: .55rem 1rem; border: 1px solid var(--line); border-radius: var(--pill); font-weight: 600; }
+
+/* Russian: Cyrillic display serif */
+html[lang="ru"] { --display: "Lora", Georgia, "Times New Roman", serif; }
+html[lang="ru"] h1, html[lang="ru"] h2, html[lang="ru"] h3 { letter-spacing: -0.01em; }
+html[lang="ru"] .heading-style-h1 { line-height: 1.12; }
